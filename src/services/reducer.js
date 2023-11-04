@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 import actionTypes from './actionTypes.js';
 import TaxPayerType from 'models/taxPayerType.js';
+import GraphType from 'models/graphType.js';
 
 
 const savedState = JSON.parse(window.localStorage.getItem('state') || '{}');
@@ -11,6 +12,7 @@ const initialState = Immutable.Map({
   income: savedState.income || 480000,
   expense: savedState.expense || 300000,
   flatExpenseRate: savedState.flatExpenseRate || 0.6,
+  graphType: savedState.graphType || GraphType.MONTH,
 });
 
 const reducer = handleActions({
@@ -31,6 +33,11 @@ const reducer = handleActions({
   },
   [actionTypes.SET_FLAT_EXPENSE_RATE]: (state, action) => {
     const newState = state.set('flatExpenseRate', action.payload);
+    window.localStorage.setItem('state', JSON.stringify(newState));
+    return newState;
+  },
+  [actionTypes.SET_GRAPH_TYPE]: (state, action) => {
+    const newState = state.set('graphType', action.payload);
     window.localStorage.setItem('state', JSON.stringify(newState));
     return newState;
   },

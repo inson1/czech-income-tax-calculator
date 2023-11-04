@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import MoneyInput from 'app/moneyInput/moneyInput.js';
 
+import GraphType from 'models/graphType.js';
+
 import './incomeInput.less';
 
 
@@ -27,10 +29,46 @@ class IncomeInput extends React.Component {
 
     return (
       <div className="income-input">
-        <p><MoneyInput value={income} onChange={this.props.onChange.bind(this)} /></p>
-        <p><MoneyInput value={incomePerMonth} onChange={this.onChangeIncomePerMonth.bind(this)} /> / měsíc</p>
-        <p><MoneyInput value={incomePerDay} onChange={this.onChangeIncomePerDay.bind(this)} /> / den</p>
-        <p><MoneyInput value={incomePerHour} onChange={this.onChangeIncomePerHour.bind(this)} /> / hodina</p>
+        <p>
+          <input
+            type="radio"
+            name="graphType"
+            value={GraphType.YEAR}
+            checked={props.graphType === GraphType.YEAR}
+            onChange={event => props.setTaxPayerType(event.target.value)}
+          />
+          <MoneyInput value={income} onChange={this.props.onChange.bind(this)} />
+        </p>
+        <p>
+          <input
+            type="radio"
+            name="graphType"
+            value={GraphType.MONTH}
+            checked={props.graphType === GraphType.MONTH}
+            onChange={event => props.setTaxPayerType(event.target.value)}
+          />
+          <MoneyInput value={incomePerMonth} onChange={this.onChangeIncomePerMonth.bind(this)} /> / měsíc
+        </p>
+        <p>
+        <input
+            type="radio"
+            name="graphType"
+            value={GraphType.DAY}
+            checked={props.graphType === GraphType.DAY}
+            onChange={event => props.setTaxPayerType(event.target.value)}
+          />
+          <MoneyInput value={incomePerDay} onChange={this.onChangeIncomePerDay.bind(this)} /> / den
+          </p>
+        <p>
+        <input
+            type="radio"
+            name="graphType"
+            value={GraphType.HOUR}
+            checked={props.graphType === GraphType.HOUR}
+            onChange={event => props.setTaxPayerType(event.target.value)}
+          />
+          <MoneyInput value={incomePerHour} onChange={this.onChangeIncomePerHour.bind(this)} /> / hodina
+        </p>
       </div>
     );
   }
